@@ -32,5 +32,3 @@ unsigned int semThreadCount(semaphore * sem)
 {
 	return sem->threadCount;
 }
-
-

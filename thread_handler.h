@@ -1,4 +1,4 @@
-/* 
+/*
     Name:   thread_handler.h
     Author: Dongyuan Zhan
     Date:   11/20/2010
@@ -36,4 +36,3 @@ void *mythread_schedule(void *context);
 unsigned int mythread_isQempty();
 
 void mythread_cleanup();
-

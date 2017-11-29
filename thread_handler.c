@@ -28,17 +28,17 @@ static unsigned int *main_stack_pointer = NULL;
 tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)(unsigned int tid))
 {
     unsigned int *tmp_ptr;
-    
+
     /* allocate a tcb for a thread */
     tcb *thread_pointer;
-    
+
     thread_pointer                      = (tcb *)malloc(sizeof(tcb));
     if (thread_pointer == NULL)
     {
         printf("Unable to allocate space!\n");
         exit(1);
     }
-    
+
     /* initialize the thread's tcb */
     thread_pointer->tid                 = tid;
     thread_pointer->stack               = (unsigned int *)malloc(sizeof(unsigned int) * stack_size);
@@ -50,7 +50,7 @@ tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)
     thread_pointer->stack_size          = stack_size;
     thread_pointer->stack_pointer       = (unsigned int *)(thread_pointer->stack + stack_size - 19);
     thread_pointer->state               = NEW;
-    
+
     /* initialize the thread's stack */
     tmp_ptr                             = thread_pointer->stack_pointer;
     tmp_ptr[18]                         = (unsigned int)mythread;                               // ea
@@ -58,7 +58,7 @@ tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)
     tmp_ptr[5]                          = tid;                                                  // r4
     tmp_ptr[0]                          = (unsigned int)mythread_cleanup;                       // ra
     tmp_ptr[-1]                         = (unsigned int)(thread_pointer->stack + stack_size);   // fp
-           
+
     return thread_pointer;
 }
 
@@ -106,15 +106,15 @@ void *mythread_schedule(void *context)
         {
             main_stack_pointer = (unsigned int *)context;
         }
-        
+
         current_running_thread = (tcb *)dequeue();
         // assert(current_running_thread->state == READY);
         current_running_thread->state = RUNNING;
-        
+
         context = (void *)(current_running_thread->stack_pointer);
     }
     else if (current_running_thread==NULL && main_stack_pointer!=NULL)
-    {        
+    {
         context = (void *)main_stack_pointer;
     }
 

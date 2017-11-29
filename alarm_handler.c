@@ -31,7 +31,7 @@ alt_u32 myinterrupt_handler(void* context)
     {
         printf("Interrupted by the DE2 timer!\n");
     }
-    
+
     return alt_ticks_per_second()>>FACTOR;
 }
 
@@ -39,6 +39,3 @@ unsigned int start_alarm_succeed()
 {
     return alt_alarm_start(&alarm, (alt_ticks_per_second()>>FACTOR), myinterrupt_handler, NULL) >= 0;
 }
-
-
-

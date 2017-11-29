@@ -59,7 +59,7 @@ void stylist(unsigned int tid)
 			break;
 	}
 }
-    
+
 void os_primitive()
 {
     unsigned int i;
@@ -67,7 +67,7 @@ void os_primitive()
     semInit(&customerAvailable,0);
     semInit(&stylistAvailable,0);
     semInit(&mutex,1);
-    
+
     for (i = 0; i <= NUM_THREADS; i++)
     {
     	if (i == NUM_THREADS)
@@ -78,7 +78,7 @@ void os_primitive()
         mythread_join(thread_pointer);
     }
 
-    
+
     if ( start_alarm_succeed() )
         printf ("Start the alarm successfully\n");
     else
