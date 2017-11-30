@@ -20,8 +20,22 @@ typedef struct queue_type
     unsigned int        size;
 } Q_type;
 
+typedef struct thread_queue
+{
+    E_type              *head;
+    E_type              *tail;
+    unsigned int        size;
+}T_type;
 void enqueue(void *data);
 
 void *dequeue();
 
+void enqueueT(T_type *t, tcb *data);
+
+void *dequeueT(T_type *t);
+
+unsigned int getTsize(T_type *t);
+
 unsigned int getQsize();
+
+void *release(T_type *t);

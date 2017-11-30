@@ -61,6 +61,10 @@ tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)
 
     return thread_pointer;
 }
+tcb *get_current_running_thread()
+{
+	return current_running_thread;
+}
 
 /* NEW ----> READY */
 void mythread_start(tcb *thread_pointer)
