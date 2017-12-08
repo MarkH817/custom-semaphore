@@ -16,10 +16,12 @@ typedef struct thread_queue_type
     unsigned int        size;
 } TQ_type;
 
-void initThreadQueue(TQ_type queue);
+void initThreadQueue(TQ_type *queue);
 
-void enqueue(TQ_type queue, void *data);
+void releaseAll(TQ_type *queue);
 
-void *dequeue(TQ_type queue);
+void enqueue(TQ_type *queue);
 
-unsigned int getQsize(TQ_type queue);
+void *dequeue(TQ_type *queue);
+
+unsigned int getQsize(TQ_type *queue);

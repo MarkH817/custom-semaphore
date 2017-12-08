@@ -4,12 +4,21 @@
 
 void initThreadQueue(TQ_type *queue) {
     // Initialize queue variable
-    queue->head = null;
-    queue->tail = null;
+    queue->head = NULL;
+    queue->tail = NULL;
     queue->size = 0;
 }
 
-void enqueue(TQ_type *queue, void *data)
+void releaseAll(TQ_type *queue) {
+    unsigned int size = queue->size;
+    unsigned int i;
+
+    for (i = 0; i < size; i++) {
+        dequeue(queue);
+    }
+}
+
+void enqueue(TQ_type *queue)
 {
     T_type  *elem;
 
@@ -21,11 +30,11 @@ void enqueue(TQ_type *queue, void *data)
         exit(1);
     }
 
-    elem->data = data;
+    elem->data = get_current_running_thread();
     elem->next = NULL;
 
-    if (queue.head == NULL) {
-        queue.head = elem;
+    if (queue->head == NULL) {
+        queue->head = elem;
     }
     else {
         queue->tail->next = elem;
@@ -51,7 +60,7 @@ void *dequeue(TQ_type *queue)
         }
 
         // Unblock thread
-        elem->state = RUNNING;
+        elem->data->state = RUNNING;
 
         queue->head = queue->head->next;
 
