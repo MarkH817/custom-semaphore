@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "thread_handler.h"
 #include "thread_queue.h"
 
 void initThreadQueue(TQ_type *queue) {
@@ -29,6 +30,10 @@ void enqueue(TQ_type *queue, void *data)
     else {
         queue->tail->next = elem;
     }
+
+    // Block added thread
+    mythread_block(get_current_running_thread());
+
     queue->tail = elem;
 
     queue->size++;
@@ -40,10 +45,14 @@ void *dequeue(TQ_type *queue)
     void    *data = NULL;
 
     if (queue.size != 0) {
-        elem = queue.head;
+        elem = queue->head;
         if (queue->size == 1) {
             queue->tail = NULL;
         }
+
+        // Unblock thread
+        elem->state = RUNNING;
+
         queue->head = queue->head->next;
 
         queue->size--;

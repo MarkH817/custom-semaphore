@@ -23,6 +23,8 @@ typedef struct
 /* declaration */
 tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)(unsigned int tid));
 
+tcb *get_current_running_thread ();
+
 void mythread_start(tcb *thread_pointer);
 
 void mythread_join(tcb *thread_pointer);

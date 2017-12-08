@@ -25,6 +25,10 @@ static tcb *current_running_thread      = NULL;
 /* pointing to the stack/context of main() */
 static unsigned int *main_stack_pointer = NULL;
 
+tcb *get_current_running_thread () {
+    return current_running_thread;
+}
+
 tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)(unsigned int tid))
 {
     unsigned int *tmp_ptr;
