@@ -6,6 +6,9 @@
 Description:
     Functions used to manage threads
 */
+#ifndef THREAD_HANDLER_H
+#define THREAD_HANDLER_H
+
 
 /* possible thread states */
 enum tstate {NEW, READY, RUNNING, BLOCKED, TERMINATED, NUM_TSTATES};
@@ -20,6 +23,7 @@ typedef struct
     enum tstate  state;
 } tcb;
 
+tcb *get_current_running_thread();
 /* declaration */
 tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)(unsigned int tid));
 
@@ -36,3 +40,5 @@ void *mythread_schedule(void *context);
 unsigned int mythread_isQempty();
 
 void mythread_cleanup();
+
+#endif /* GRANDPARENT_H */

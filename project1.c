@@ -24,6 +24,7 @@ void customer(unsigned int tid)
 		if (waiting < CHAIRS){
 			waiting = waiting + 1;
 			printf("C: %d customer(s) waiting.\n", waiting);
+//			printf("HELLO\n");
 			semUp(&customerAvailable);
 			semUp(&mutex);
 			semDown(&stylistAvailable);
@@ -45,6 +46,7 @@ void stylist(unsigned int tid)
 {
 	int j;
 	while(1){
+		printf("Stylist started.\n");
 		semDown(&customerAvailable);
 		semDown(&mutex);
 		waiting = waiting - 1;

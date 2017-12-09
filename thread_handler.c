@@ -62,6 +62,11 @@ tcb *mythread_create(unsigned int tid, unsigned int stack_size, void (*mythread)
     return thread_pointer;
 }
 
+tcb *get_current_running_thread()
+{
+	return current_running_thread;
+}
+
 /* NEW ----> READY */
 void mythread_start(tcb *thread_pointer)
 {
@@ -108,6 +113,11 @@ void *mythread_schedule(void *context)
         }
 
         current_running_thread = (tcb *)dequeue();
+        while (current_running_thread->state == BLOCKED){
+        	printf("Blocked thread is scheduled.\n");
+        	 enqueue(current_running_thread);
+             current_running_thread = (tcb *)dequeue();
+        }
         // assert(current_running_thread->state == READY);
         current_running_thread->state = RUNNING;
 

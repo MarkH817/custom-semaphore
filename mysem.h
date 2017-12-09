@@ -4,14 +4,16 @@
  *  Created on: Nov 12, 2017
  *      Author: witty
  */
-
+#include "thread_queue.h"
 #ifndef MYSEM_H_
 #define MYSEM_H_
 
 struct mySem{
 	int threadCount;
 	int value;
+	TQ_type *queue;
 	/* You need to add your blocking queue in this struct. */
+	//T_type queue;
 };
 
 typedef struct mySem semaphore;
